@@ -29,7 +29,7 @@ public class Local {
 
 	@NotNull(message = "El teléfono del local no puede ser nulo.")
 	@Size(min = 9, max = 15, message = "El teléfono debe tener entre 9 y 15 caracteres.")
-	@Schema(description = "Teléfono del local", example = "+34 912 345 678")
+	@Schema(description = "Teléfono del local", example = "912 345 678")
 	private String telefono;
 
 	@Schema(description = "Lista de platos del local")
