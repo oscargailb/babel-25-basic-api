@@ -1,0 +1,583 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/restaurante/platos/{id}": {
+      "get": {
+        "tags": [
+          "platos-controller-impl"
+        ],
+        "summary": "Obtener un plato por ID",
+        "description": "Devuelve los detalles de un plato específico utilizando su ID.",
+        "operationId": "getPlatosById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID del plato a obtener",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Plato encontrado",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Plato"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Plato no encontrado",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Plato"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Plato"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "platos-controller-impl"
+        ],
+        "summary": "Actualizar un plato",
+        "description": "Permite actualizar un plato existente utilizando su ID.",
+        "operationId": "updatePlato",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID del plato a actualizar",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Plato"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Plato actualizado correctamente"
+          },
+          "404": {
+            "description": "Plato a actualizar no encontrado"
+          },
+          "400": {
+            "description": "Petición mal formada"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "platos-controller-impl"
+        ],
+        "summary": "Eliminar un plato",
+        "description": "Permite eliminar un plato utilizando su ID.",
+        "operationId": "deletePlato",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID del plato a eliminar",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Plato eliminado correctamente"
+          },
+          "404": {
+            "description": "Plato no encontrado"
+          },
+          "500": {
+            "description": "Error interno del servidor"
+          }
+        }
+      }
+    },
+    "/restaurante/locales/{cif}": {
+      "get": {
+        "tags": [
+          "locales-controller-impl"
+        ],
+        "summary": "Obtener local por CIF",
+        "description": "Este endpoint devuelve los detalles de un local en base a su CIF.",
+        "operationId": "getLocalByCif",
+        "parameters": [
+          {
+            "name": "cif",
+            "in": "path",
+            "description": "CIF del local que se desea consultar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Local encontrado exitosamente",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Local"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Local no encontrado",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Local"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "locales-controller-impl"
+        ],
+        "summary": "Crear o actualizar un local",
+        "description": "Este endpoint crea o actualiza un local en base a su CIF.",
+        "operationId": "createOrUpdateLocal",
+        "parameters": [
+          {
+            "name": "cif",
+            "in": "path",
+            "description": "CIF del local a crear o actualizar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Local"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Local creado exitosamente"
+          },
+          "204": {
+            "description": "Local actualizado exitosamente"
+          },
+          "400": {
+            "description": "Petición incorrecta"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "locales-controller-impl"
+        ],
+        "summary": "Eliminar un local",
+        "description": "Este endpoint elimina un local en base a su CIF.",
+        "operationId": "deleteLocal",
+        "parameters": [
+          {
+            "name": "cif",
+            "in": "path",
+            "description": "CIF del local a eliminar",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Local eliminado exitosamente"
+          },
+          "404": {
+            "description": "Local no encontrado"
+          }
+        }
+      }
+    },
+    "/restaurante/platos": {
+      "get": {
+        "tags": [
+          "platos-controller-impl"
+        ],
+        "summary": "Listado de platos",
+        "description": "Devuelve una lista con todos los platos disponibles en el restaurante.",
+        "operationId": "getPlatos",
+        "responses": {
+          "200": {
+            "description": "Listado de platos encontrado",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Plato"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Plato"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "platos-controller-impl"
+        ],
+        "summary": "Crear un nuevo plato",
+        "description": "Permite crear un nuevo plato en el restaurante.",
+        "operationId": "createPlato",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Plato"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Plato creado correctamente",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Petición mal formada",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/restaurante/locales/{cif}/platos": {
+      "get": {
+        "tags": [
+          "locales-controller-impl"
+        ],
+        "summary": "Obtener platos de un local",
+        "description": "Este endpoint devuelve los platos de un local especificado por su CIF.",
+        "operationId": "getPlatos_1",
+        "parameters": [
+          {
+            "name": "cif",
+            "in": "path",
+            "description": "CIF del local del que se desean obtener los platos",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Platos obtenidos exitosamente",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Plato"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Local no encontrado",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Plato"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "locales-controller-impl"
+        ],
+        "summary": "Agregar un plato a un local",
+        "description": "Este endpoint permite agregar un plato a un local específico usando su CIF.",
+        "operationId": "addPlato",
+        "parameters": [
+          {
+            "name": "cif",
+            "in": "path",
+            "description": "CIF del local al que se desea agregar el plato",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32",
+                "description": "ID del plato a agregar"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Plato agregado exitosamente"
+          },
+          "204": {
+            "description": "Plato ya existe o no se agregó"
+          },
+          "404": {
+            "description": "Local no encontrado"
+          }
+        }
+      }
+    },
+    "/restaurante/locales": {
+      "get": {
+        "tags": [
+          "locales-controller-impl"
+        ],
+        "summary": "Obtener lista de locales",
+        "description": "Este endpoint devuelve una lista con todos los locales disponibles.",
+        "operationId": "getLocales",
+        "responses": {
+          "200": {
+            "description": "Lista de locales obtenida exitosamente",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Local"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error en el servidor",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Local"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/restaurante/locales/{cif}/platos/{plato}": {
+      "delete": {
+        "tags": [
+          "locales-controller-impl"
+        ],
+        "summary": "Eliminar un plato de un local",
+        "description": "Este endpoint elimina un plato de un local especificado por su CIF.",
+        "operationId": "removePlato",
+        "parameters": [
+          {
+            "name": "cif",
+            "in": "path",
+            "description": "CIF del local del que se desea eliminar el plato",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "plato",
+            "in": "path",
+            "description": "ID del plato a eliminar",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Plato eliminado exitosamente"
+          },
+          "404": {
+            "description": "Local o plato no encontrado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Plato": {
+        "type": "object",
+        "description": "Objeto Plato con los detalles del plato a crear",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "description": "ID único del plato"
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del plato"
+          },
+          "precio": {
+            "type": "number",
+            "format": "double",
+            "description": "Precio del plato",
+            "example": 12.5
+          },
+          "categoria": {
+            "type": "string",
+            "description": "Categoria del plato, indicando si es primer plato, segundo plato o postre.",
+            "enum": [
+              "Entrante",
+              "Plato principal",
+              "Postre"
+            ],
+            "example": "PRIMER_PLATO"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "Local": {
+        "type": "object",
+        "description": "Datos del local a crear o actualizar",
+        "properties": {
+          "cif": {
+            "type": "string",
+            "description": "CIF único del local",
+            "example": "B12345678"
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del local"
+          },
+          "direccion": {
+            "type": "string",
+            "description": "Dirección física del local"
+          },
+          "telefono": {
+            "type": "string",
+            "description": "Teléfono del local"
+          },
+          "carta": {
+            "type": "array",
+            "description": "Lista de platos disponibles en el local",
+            "items": {
+              "$ref": "#/components/schemas/Plato"
+            }
+          }
+        },
+        "required": [
+          "cif"
+        ]
+      }
+    }
+  }
+}
